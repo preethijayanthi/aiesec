@@ -1,0 +1,57 @@
+<div class="banner-job">
+  <div class="banner-overlay"></div>
+  <div class="container text-center">
+    <h1 class="title">The Easiest Way to Get Opprtunities</h1>
+    <h3>We have {{paging.total_items}} opportunities right now</h3>
+    <div class="banner-form form">
+      <input [(ngModel)]="searchText" type="text"  class="form-control" placeholder="Type your key word">
+      <button type="submit" (click)="getOpportunites()" class="search btn btn-primary" value="Search">Search</button>
+    </div><!-- banner-form -->
+  </div><!-- container -->
+</div><!-- banner-section -->
+
+<div class="page">
+  <div class="container">
+    <div class="section m-t-50 latest-jobs-ads">
+      <div class="section-title tab-manu">
+        <h4>Latest Jobs</h4>
+      </div>
+      <div>
+        <div *ngFor="let opportunity of opportunities | paginate: {
+          itemsPerPage: 20,
+          currentPage: currentPage,
+          totalItems: paging.total_items }" class="job-ad-item" >
+          <div class="item-info">
+            <div class="item-image-box">
+              <div class="item-image">
+                <a routerLink="/opportunities/{{opportunity.id}}"><img src="{{opportunity.cover_photo_urls}}" alt="Image" class="img-responsive"></a>
+              </div><!-- item-image -->
+            </div>
+            <div class="ad-info">
+              <span><a routerLink="/opportunities/{{opportunity.id}}" class="title">{{opportunity.title}}</a></span>
+              <div class="ad-meta">
+                <ul>
+                  <li><a><i class="fa fa-building-o" aria-hidden="true"></i>{{opportunity.branch.organisation.name}}</a></li>
+                  <li *ngIf="opportunity.location"><a ><i class="fa fa-map-marker" aria-hidden="true"></i>{{opportunity.location}}</a></li>
+                  <li><a><i class="fa fa-hourglass-start" aria-hidden="true"></i>{{opportunity.applications_close_date | date}} </a></li>
+                  <li><a><i class="fa fa fa-clock-o" aria-hidden="true"></i>{{opportunity.earliest_start_date | date}} - {{opportunity.latest_end_date | date }}</a></li>
+                </ul>
+              </div><!-- ad-meta -->
+            </div><!-- ad-info -->
+            <div class="button">
+              <button (click)="assignOpportunityId(opportunity.id)" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Edit</button>
+            </div>
+          </div>
+        </div>
+
+        <pagination-controls class="text-center" (pageChange)="getOpportunites(); currentPage = $event"></pagination-controls>
+      </div>
+    </div>
+  </div><!-- conainer -->
+</div><!-- page -->
+
+<!-- To open edit modal -->
+<div class="modal" tabindex="-1" id = "exampleModal" role="dialog">
+  <app-edit  *ngIf="opportunityId" [opportunityId]="opportunityId" ></app-edit>
+</div>
+<!-- To open edit modal -->

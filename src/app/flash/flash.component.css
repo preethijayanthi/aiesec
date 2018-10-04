@@ -1,0 +1,7 @@
+.flash {
+    width: 100%;
+    position: absolute;
+    z-index: 1051;
+    text-align: center
+}
+.flash:first-letter {text-transform:uppercase}

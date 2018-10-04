@@ -1,0 +1,141 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" #closeModal class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title">Edit Opportunity</h4>
+    </div>
+    <form [formGroup]="editOpportunityForm" (ngSubmit)="onSubmit(editOpportunityForm)">
+      <div class="modal-body" formGroupName="opportunity">
+        <div class=" row m-t-15">
+          <div class="col-md-6">
+            <label >Title</label>
+            <input type="text" class="form-control" formControlName= "title" placeholder="Enter Title">
+            <show-errors [control]="editOpportunityForm.controls.opportunity.controls.title"></show-errors>
+          </div>  
+          <div class="col-md-6">
+            <label >Description</label>
+            <textarea type="text" class="form-control" formControlName= "description" placeholder="Enter Description" ></textarea>
+            <show-errors [control]="editOpportunityForm.controls.opportunity.controls.description"></show-errors>
+          </div>          
+        </div> 
+        <div class=" row m-t-15">
+          <div class="col-md-6">
+            <label >Earliest Start Date</label>
+            <input class="form-control date-field" placeholder="Click to Select"  style="float:none" ngx-mydatepicker name="start_Date"
+            formControlName="earliest_start_date" (click)="dp.toggleCalendar()"[options]="myOptions" #dp="ngx-mydatepicker"/>
+            <show-errors [control]="editOpportunityForm.controls.opportunity.controls.earliest_start_date"></show-errors>
+          </div>  
+          <div class="col-md-6">
+            <label >Latest End Date</label>
+            <input class="form-control date-field" placeholder="Click to Select"   style="float:none" ngx-mydatepicker name="end_Date"
+            formControlName="latest_end_date" (click)="dp1.toggleCalendar()" [options]="myOptions" #dp1="ngx-mydatepicker"/>
+            <show-errors [control]="editOpportunityForm.controls.opportunity.controls.latest_end_date"></show-errors>
+          </div>          
+        </div> 
+        <div class=" row m-t-15" formGroupName="role_info">
+          <div class="col-md-6">
+            <label >Selection Process</label>
+            <input type="text" class="form-control" formControlName= "selection_process" placeholder="Enter Selection Process">
+            <show-errors [control]="editOpportunityForm.controls.opportunity.controls.role_info.controls.selection_process"></show-errors>
+          </div>  
+          <div class="col-md-6">
+            <label >City</label>
+            <input type="text" (keyup)="getGooglePlaces($event.target.value)" class="form-control" formControlName= "city" placeholder="Enter Location">
+            <show-errors [control]="editOpportunityForm.controls.opportunity.controls.role_info.controls.city"></show-errors>
+          </div>      
+        </div>
+        <div class=" row m-t-15">
+          <div class="col-md-6" formGroupName="specifics_info">
+            <label >Salary</label>
+            <input type="integer" class="form-control" formControlName= "salary" placeholder="Enter Selection Process">
+            <show-errors [control]="editOpportunityForm.controls.opportunity.controls.specifics_info.controls.salary"></show-errors>
+          </div>  
+          <div class="col-md-6">
+            <label >Application Close Date</label>
+            <input class="form-control date-field" placeholder="Click to Select"   style="float:none" ngx-mydatepicker name="end_Date"
+            formControlName="applications_close_date" (click)="dp2.toggleCalendar()" [options]="myOptions" #dp2="ngx-mydatepicker"/>
+            <show-errors *ngIf="!error" [control]="editOpportunityForm.controls.opportunity.controls.applications_close_date"></show-errors>  
+            <div class="validation-errors help-block"  *ngIf="error['date']"> Application Close Date cannot be less than 30 days and it cannot more than 90 days from current date </div>    
+          </div>         
+        </div>
+        <div class="row m-t-15">
+          <h4 class="form-label col-md-12" >Skills</h4>
+          <show-errors class="col-md-12" [control]="editOpportunityForm.controls.opportunity.controls.skills"></show-errors>
+          <div formArrayName="skills" *ngFor="let skill of editOpportunityForm.controls.opportunity.controls.skills.controls; let i = index;">
+            <div class="row col-md-12" [formGroupName]="i" >
+              <div class="form-controls col-md-4">
+                <label >Name</label>
+                <select class="form-control form-group"  formControlName="id" >
+                  <option>Select</option>
+                  <option  *ngFor="let skill of skills" [value]=skill.id>{{skill.name}}</option>
+                </select>
+                <show-errors [control]="skill.controls.id"></show-errors>        
+              </div>
+              <div class="form-controls col-md-4">
+                <label >Option</label>
+                <select class="form-control form-group"  formControlName="option" >
+                  <option value='preferred' >Preferred</option>
+                  <option value='required' >Required</option>
+                  <option value='featured' >Featured</option>
+                </select>
+              </div>
+              <div class="form-controls col-md-4">
+                <div class="col-md-12">
+                  <label >Level</label>
+                </div>
+                <div class="col-md-10">
+                  <select class="form-control form-group"  formControlName="level" >
+                    <option value='0' >0</option>
+                    <option value='1' >1</option>
+                    <option value='2' >2</option>
+                    <option value='3' >3</option>
+                  </select>
+                </div>                
+                <span class="col-md-2 glyphicon glyphicon-remove pull-right" (click)="removeSkill(i)"></span>
+              </div>
+            </div>
+          </div>
+          <a href="#" class = "col-md-2" (click)="createSkill()">Add Skill</a>
+        </div>
+        <div class="row m-t-15">
+          <h4 class="form-label col-md-12" >BackGrounds </h4>
+          <show-errors class="col-md-12" [control]="editOpportunityForm.controls.opportunity.controls.backgrounds"></show-errors> 
+          <div  formArrayName="backgrounds" *ngFor="let backGround of editOpportunityForm.controls.opportunity.controls.backgrounds.controls; let i = index;">
+            <div [formGroupName]="i" >
+              <div class="form-controls col-md-6">
+                  <label >Name</label>
+                <select class="form-control form-group"  formControlName="id" >
+                  <option value='' >Select</option>
+                  <option  *ngFor="let backGround of backGrounds" [value]=backGround.id>{{backGround.name}}</option>
+                </select>
+                <show-errors [control]="backGround.controls.id"></show-errors>  
+              </div>
+              <div class="form-controls col-md-6">
+                <div class="col-md-12">
+                    <label >Option</label>
+                </div>
+                <div class="col-md-11">
+                  <select class="form-control form-group"  formControlName="option" >
+                    <option value='preferred' >Preferred</option>
+                    <option value='required' >Required</option>
+                  </select>
+                </div>
+                <span class="col-md-1 glyphicon glyphicon-remove pull-right" (click)="removeBackGround(i)"></span>
+              </div> 
+            </div>   
+          </div>
+          <a href="#" class = "col-md-3" (click)="createBackGround()">Add BackGround</a> 
+ 
+        </div>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+      <br/>
+      <!-- <br/>
+      <div class="modal-footer">
+      </div> -->
+    </form>
+  </div>
+</div>

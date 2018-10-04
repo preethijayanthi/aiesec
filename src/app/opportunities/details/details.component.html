@@ -1,0 +1,68 @@
+<section class=" page job-details-page">
+  <div class="container">
+
+    <div class="job-details">
+      <div class="section job-ad-item">
+        <div class="item-info">
+          <div class="item-image-box">
+            <div class="item-image">
+              <img src="{{opportunity.cover_photo_urls}}" alt="Image" class="img-responsive">
+            </div><!-- item-image -->
+          </div>
+
+          <div class="ad-info">
+            <span><a  class="title">{{opportunity.title}}</a></span>
+            <div class="ad-meta">
+              <ul>
+                <li><a ><i class="fa fa-map-marker" aria-hidden="true"></i>Place: {{opportunity.location}}</a></li>
+
+                <li *ngIf="opportunity.specifics_info"><i class="fa fa-money" aria-hidden="true"></i>Salary: $ {{opportunity.specifics_info['salary']}}</li>
+                <!-- <li><a ><i class="fa fa-tags" aria-hidden="true"></i>HR/Org. Development</a></li> -->
+                <li><i class="fa fa-hourglass-start" aria-hidden="true"></i>Deadline : {{opportunity.applications_close_date}}</li>
+              </ul>
+            </div><!-- ad-meta -->
+          </div><!-- ad-info -->
+        </div><!-- item-info -->
+      </div><!-- job-ad-item -->
+
+      <div class="job-details-info">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="section job-description">
+              <div class="description-info">
+                <h1>Description</h1>
+                <p>{{opportunity.description}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="section job-short-info">
+              <h1>Short Info</h1>
+              <ul>
+                <li><span class="icon"><i class="fa fa-calendar-check-o " aria-hidden="true"></i></span>Start Date: {{opportunity.earliest_start_date | date}}</li>
+                <li><span class="icon"><i class="fa fa-calendar-times-o" aria-hidden="true"></i></span> End Date: <a>{{opportunity.latest_end_date | date}}</a></li>
+                <li><span class="icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>Duration: <a>{{opportunity.duration}}</a></li>
+                <li><span class="icon"><i class="fa fa-line-chart" aria-hidden="true"></i></span>Skills: <a *ngFor="let skill of opportunity.skills">{{skill.name}}</a></li>
+                <li><span class="icon"><i class="fa fa-key" aria-hidden="true"></i></span>BackGrounds: <a *ngFor="let backGround of opportunity.backgrounds">{{backGround.name}}</a></li>
+                <li><span class="icon"><i class="fa fa-google" aria-hidden="true"></i></span>Google Place Id: <a>{{opportunity.google_place_id}}</a></li>
+              </ul>
+            </div>
+            <div class="section company-info">
+              <h1>Additional Info</h1>
+              <ul>
+                <li>Status: <a>{{opportunity.status}}</a></li>
+                <li>Openings:  <a>{{opportunity.openings}}</a></li>
+                <li>Languages: <a *ngFor="let language of opportunity.languages">{{language.name}}</a></li>
+                <li *ngIf="opportunity.logistics_info">Food Covered:  <a>{{opportunity.logistics_info.food_covered}}</a></li>
+                <li *ngIf="opportunity.logistics_info">Food Weekends:  <a>{{opportunity.logistics_info.food_weekends}}</a></li>
+                <li *ngIf="opportunity.logistics_info">Accommodation Covered:  <a>{{opportunity.logistics_info.accommodation_covered}}</a></li>
+                <li *ngIf="opportunity.logistics_info">Accommodation Provided:  <a>{{opportunity.logistics_info.accommodation_provided}}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- row -->
+      </div><!-- job-details-info -->
+    </div><!-- job-details -->
+  </div><!-- container -->
+</section>
+
