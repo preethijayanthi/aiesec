@@ -5,7 +5,7 @@
     <h3>We have {{paging.total_items}} opportunities right now</h3>
     <div class="banner-form form">
       <input [(ngModel)]="searchText" type="text"  class="form-control" placeholder="Type your key word">
-      <button type="submit" (click)="getOpportunites()" class="search btn btn-primary" value="Search">Search</button>
+      <button type="submit" (click)="currentPage = 1; getOpportunites() " class="search btn btn-primary" value="Search">Search</button>
     </div><!-- banner-form -->
   </div><!-- container -->
 </div><!-- banner-section -->
@@ -44,7 +44,7 @@
           </div>
         </div>
 
-        <pagination-controls class="text-center" (pageChange)="getOpportunites(); currentPage = $event"></pagination-controls>
+        <pagination-controls class="text-center" (pageChange)="currentPage = $event; getOpportunites(); "></pagination-controls>
       </div>
     </div>
   </div><!-- conainer -->
