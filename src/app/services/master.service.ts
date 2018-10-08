@@ -19,6 +19,11 @@ export class MasterService {
     return this.requestClient.get(uri);
   }
 
+  getMcsList() {
+    const uri = environment.baseUrl + '/lists/mcs?access_token=' + environment.accessToken;
+    return this.requestClient.get(uri);
+  }
+
   getGooglePlaces(query) {
     const uri = environment.googlePlacesApiUrl + '?input=' + query + '&key' + environment.googlePlacesApiKey;
     return this.requestClient.get(uri);

@@ -39,12 +39,51 @@
               </div><!-- ad-meta -->
             </div><!-- ad-info -->
             <div class="button">
-              <button (click)="assignOpportunityId(opportunity.id)" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Edit</button>
+              <button (click)="opportunityId = opportunity.id" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Edit</button>
             </div>
           </div>
         </div>
 
-        <pagination-controls class="text-center" (pageChange)="currentPage = $event; getOpportunites(); "></pagination-controls>
+      <pagination-controls class="text-center" (pageChange)="currentPage = $event; getOpportunites(); "></pagination-controls>
+      
+      <hr>
+      <div class="latest-jobs-ads text-right"> 
+        Search By Places
+        <input autocomplete  [config]="config2" [items]="mcsSearch"
+        (inputChangedEvent)="onInputChangedEvent($event)"
+        (selectEvent)="onSelectCountry($event)" > 
+      </div>
+      <div class="section latest-jobs-ads">
+        <agm-map 
+          [latitude]="lat"
+          [longitude]="lng"
+          [zoom]="zoom"
+          [disableDefaultUI]="false"
+          [zoomControl]="false"
+          (mapClick)="mapClicked($event)">
+          <agm-marker 
+              *ngFor="let m of markers; let i = index"
+              (markerClick)="clickedMarker(m)"
+              [latitude]="m.lat"
+              [longitude]="m.lng"
+              [label]="m.label"
+              [markerDraggable]="m.draggable"
+              (dragEnd)="markerDragEnd(m, $event)">
+              
+            <agm-info-window>
+              <strong>{{m.label}}</strong>
+            </agm-info-window>
+            
+          </agm-marker>
+          
+          <agm-circle [latitude]="lat + 0.3" [longitude]="lng" 
+              [radius]="5000"
+              [fillColor]="'red'"
+              [circleDraggable]="true"
+              [editable]="true">
+          </agm-circle>
+        </agm-map>
+      </div>
       </div>
     </div>
   </div><!-- conainer -->

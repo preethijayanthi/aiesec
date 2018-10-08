@@ -11,10 +11,11 @@ export class OpportunityService {
 
 
   /* getting/searching opportunity List */
-  getList(currentPage, query) {
+  getList(currentPage, query, countryId) {
     currentPage = currentPage != null ? currentPage : 1;
-    const uri = this.baseUrl + '/search?access_token=' + environment.accessToken + '&q=' +
-    query + '&page=' + currentPage + '&per_page=20&sort=-created';
+    let uri = this.baseUrl + '/search?access_token=' + environment.accessToken +
+     '&q=' + query + '&page=' + currentPage + '&per_page=50&sort=-created';
+     uri = (countryId != undefined) ? uri + '&filters[committee]=' + countryId : uri;
     return this.requestClient.get(uri);
   }
 

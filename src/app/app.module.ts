@@ -20,7 +20,8 @@ import { FlashService } from './flash/flash.service';
 import { ShowErrorsComponent } from './show-errors/show-errors.component';
 import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
-
+import { AgmCoreModule } from '@agm/core';
+import { AutocompleteModule } from 'ng2-input-autocomplete';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,11 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
     FlashMessagesModule.forRoot(),
     NgxMyDatePickerModule.forRoot(),
     Ng4GeoautocompleteModule.forRoot(),
+    // MapModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBdfogjkF6vB6ZCnXDZwNTCbP45PVbzWH8'
+    }),
+    AutocompleteModule,
     routers
     ],
   providers: [
@@ -53,3 +59,14 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+// export function MapServiceProviderFactory() {
+//   let bc: BingMapAPILoaderConfig = new BingMapAPILoaderConfig();
+//   bc.apiKey = 'AIzaSyBdfogjkF6vB6ZCnXDZwNTCbP45PVbzWH8'; // your bing map key
+//   bc.branch = "experimental";
+//       // to use the experimental bing brach. There are some bug fixes for
+//       // clustering in that branch you will need if you want to use 
+//       // clustering.
+//   return new BingMapAPILoader(bc, new WindowRef(), new DocumentRef());
+// }
