@@ -61,12 +61,3 @@ import { AutocompleteModule } from 'ng2-input-autocomplete';
 export class AppModule { }
 
 
-// export function MapServiceProviderFactory() {
-//   let bc: BingMapAPILoaderConfig = new BingMapAPILoaderConfig();
-//   bc.apiKey = 'AIzaSyBdfogjkF6vB6ZCnXDZwNTCbP45PVbzWH8'; // your bing map key
-//   bc.branch = "experimental";
-//       // to use the experimental bing brach. There are some bug fixes for
-//       // clustering in that branch you will need if you want to use 
-//       // clustering.
-//   return new BingMapAPILoader(bc, new WindowRef(), new DocumentRef());
-// }
